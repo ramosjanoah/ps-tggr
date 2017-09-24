@@ -56,7 +56,7 @@ for sentence in data:
         previous = tag
     transitionDictionary[previous]['START'] += 1
 
-for previous, tagDictionary in transitionDictionary.items():
-    for tag, value in tagDictionary.items   ():
-        print("PREVIOUS TAG: " + previous + "," + " TAG: " + tag + ". JUMLAH KEMUNCULAN : " + str(value))
+for previous, tagDictionary in transitionDictionary.iteritems():
+    for tag, value in tagDictionary.iteritems():
+        print "PREVIOUS TAG: " + previous + "," + " TAG: " + tag + ". JUMLAH KEMUNCULAN : " + str(value)
         
