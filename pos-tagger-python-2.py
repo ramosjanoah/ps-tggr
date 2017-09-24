@@ -20,13 +20,17 @@ data = parse(data)
 
 ## initiate model
 
-emptyWordTypeDictionary = {}
+
 emitDictionary = {}
 transitionDictionary = {}
 contextDictionary = {}
 
-for wordType in WORD_TYPES:
-    emptyWordTypeDictionary[wordType] = 0
+def createEmptyWordTypeDictionary():
+    global WORD_TYPES
+    emptyWordTypeDictionary = {}
+    for wordType in WORD_TYPES:
+        emptyWordTypeDictionary[wordType] = 0
+    return emptyWordTypeDictionary
 
 WORD_TYPES.append('START')
 for wordTypeKey in WORD_TYPES:
@@ -52,11 +56,11 @@ for sentence in data:
         transitionDictionary[previous][tag] += 1
         contextDictionary[tag] += 1
         if emitDictionary.get(word['form'], None) == None:
-            emitDictionary[word['form']] = emptyWordTypeDictionary
+            emitDictionary[word['form']] = createEmptyWordTypeDictionary()
+        emitDictionary[word['form']][tag] += 1
         previous = tag
     transitionDictionary[previous]['START'] += 1
 
 for previous, tagDictionary in transitionDictionary.iteritems():
     for tag, value in tagDictionary.iteritems():
         print "PREVIOUS TAG: " + previous + "," + " TAG: " + tag + ". JUMLAH KEMUNCULAN : " + str(value)
-        
