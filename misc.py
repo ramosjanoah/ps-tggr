@@ -9,7 +9,7 @@ def initProbability(word):
     global WORD_TYPES
     ProbabilityDictionaryOfWord = {}
     for wordType in WORD_TYPES:
-        ProbabilityDictionaryOfWord = 1
+        ProbabilityDictionaryOfWord =
     return ProbabilityDictionaryOfWord
 
 for WordType in WORD_TYPES:
