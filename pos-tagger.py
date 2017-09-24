@@ -23,10 +23,19 @@ def tp(i,j):
 def sol(o,j):
     tes
 
-def viterbi(N,T):
-	viterbi = {}
+def viterbi(Obs,States):
+    viterbi = {}
+    backpointer = {}
+    for state in States:
+        viterbi[state][1] = tp(i,j) * sol(o,j)
+        backpointer[state][1] = 0
+    for i in range(2,T):
+        for state in States:
+            viterbi[state][i] = tp(i,j) * sol(o,j)
+            backpointer[state][i] = tp(i,j)
+    viterbi[state][i] = tp(i,j)
+    backpointer[state][i] = tp(i,j)
 	
-
 ## initiate model
 
 def createEmptyWordTypeDictionary():
