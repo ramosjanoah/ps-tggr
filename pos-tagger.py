@@ -58,5 +58,5 @@ for sentence in data:
 
 for previous, tagDictionary in transitionDictionary.iteritems():
     for tag, value in tagDictionary.iteritems():
-        print "PREVIOUS TAG: " + previous + "," + " TAG: " + tag + ". JUMLAH KEMUNCULAN : " + str(value)
+        print 'PREVIOUS TAG: ' + previous + ',' + ' TAG: ' + tag + '. JUMLAH KEMUNCULAN : ' + str(value)
         
