@@ -14,8 +14,6 @@ f = open('id-ud-train.conllu','r', encoding='utf-8')
 data = f.read()
 tagged = parse(data)
 
-
-
 # Feature Extraction
 
 def features(sentence, index):
@@ -27,15 +25,16 @@ def features(sentence, index):
         'is_capitalized': sentence[index]['form'][0].upper() == sentence[index]['form'][0],
         'is_all_caps': sentence[index]['form'].upper() == sentence[index]['form'],
         'is_all_lower': sentence[index]['form'].lower() == sentence[index]['form'],
-        # 'prefix2': sentence[index]['form'][:2],
-        # 'suffix2': sentence[index]['form'][-2:],
+#        'prefix2': sentence[index]['form'][:2]
+#        'suffix2': sentence[index]['form'][-2:]
+#        'prev_tag': '' if index == 0 else tagFromWord(sentence, index-1),
+#        'next_tag': '' if index == len(sentence) - 1 else tagFromWord(sentence, index+1),
         'prev_word': '' if index == 0 else sentence[index - 1]['form'],
         'next_word': '' if index == len(sentence) - 1 else sentence[index + 1]['form'],
-        #'prev2_word': '' if (index == 0 or index == 1) else sentence[index - 2]['form'],
-        #'next2_word': '' if (index == len(sentence) - 2) or (index == len(sentence)-1) else sentence[index + 2]['form'],
+        'prev2_word': '' if (index == 0 or index == 1) else sentence[index - 2]['form'],
         'is_numeric': sentence[index]['form'].isdigit(),
-        'capitals_inside': sentence[index]['form'][1:].lower() != sentence[index]['form'][1:]
-    }
+}
+    
     
 def tagFromWord(sentence, index):
     if (sentence[index]['upostag']) != None:
@@ -66,18 +65,24 @@ dataset_training, tag_training = transform_to_dataset(training_sentences)
 # Training
 
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.pipeline import Pipeline
 
 clf = Pipeline([
     ('vectorizer', DictVectorizer(sparse=False)),
-    ('classifier', DecisionTreeClassifier(criterion='entropy'))
+    ('classifier', DecisionTreeClassifier())
 ])
 
-clf.fit(dataset_training[:5000], tag_training[:5000])
+clf.fit(dataset_training[:10000], tag_training[])
 
 X_test, y_test = transform_to_dataset(test_sentences)
 
-clf.score(X_test[:500], y_test[:500])
 
+print ("SCORE : " + str(clf.score(X_test[:1000], y_test[:1000])*100))
 
+#X_test[1]
+#y_test[1]
