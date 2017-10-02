@@ -49,6 +49,19 @@ def viterbi_segment(text, P):
     ## Return sequence of best words and overall probability
     return sequence, best[-1]
 
+def viterbi(Obs,States):
+    viterbi = {}
+    backpointer = {}
+    for state in States:
+        viterbi[state][1] = tp(i,j) * sol(o,j)
+        backpointer[state][1] = 0
+    for i in range(2,T):
+        for state in States:
+            viterbi[state][i] = tp(i,j) * sol(o,j)
+            backpointer[state][i] = tp(i,j)
+    viterbi[state][i] = tp(i,j)
+    backpointer[state][i] = tp(i,j)
+	
 ## initiate model
 
 def createEmptyWordTypeDictionary():
@@ -86,12 +99,15 @@ for sentence in data:
     previous = 'START'
     contextDictionary[previous] += 1
     stc = [""]
+    labelv = [""]
     for word in sentence:
         stc.append(word['form'])
         if word['upostag'] != None:
             tag = word['upostag']
+            labelv.append(word['upostag'])
         else:
             tag = word['xpostag']
+            labelv.append(word['xpostag'])
         transitionDictionary[previous][tag] += 1
         contextDictionary[tag] += 1
         if emitDictionary.get(word['form'], None) == None:
@@ -104,7 +120,6 @@ for sentence in data:
     except:
         pass
     print(stc)
-    
 
 #for previous, tagDictionary in transitionDictionary.items():
 #    for tag, value in tagDictionary.items   ():
