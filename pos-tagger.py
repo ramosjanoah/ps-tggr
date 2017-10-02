@@ -6,7 +6,7 @@ Created on Wed Sep 13 20:25:25 2017
 @author: ramosjanoah
 """
 
-from conllu.parser import parse,
+from conllu.parser import parse
 import math
 
 WORD_TYPES = ['ADV', 'ADJ', 'ADP', 'AUX', 'CCONJ', 'DET', 'INTJ', 'NOUN', 'NUM', 
@@ -164,7 +164,7 @@ def Classify(arrayOfWord):
             for _next in WORD_TYPES:
                 if bestScore[i][prev] and transitionDictionary[prev][_next] :
                     try:
-                        score = bestScore[i][prev] - math.log10(probabilityT(_next,prev)) - math.log10(probabilityE(arrayOfWord[i],_next))
+                        score = bestScore[i][prev] - math.log10n(probabilityT(_next,prev)) - math.log10(probabilityE(arrayOfWord[i],_next))
                     except ValueError:
                         score = bestScore[i][prev]
                     if i+1 < len(arrayOfWord):
