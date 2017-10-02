@@ -115,11 +115,6 @@ for sentence in data:
         emitDictionary[word['form']][tag] += 1
         previous = tag
     transitionDictionary[previous]['START'] += 1
-    try:
-        stc.remove('')
-    except:
-        pass
-    print(stc)
 
 #for previous, tagDictionary in transitionDictionary.items():
 #    for tag, value in tagDictionary.items   ():
