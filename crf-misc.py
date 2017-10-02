@@ -34,6 +34,8 @@ label_test = [sentences_label(s) for s in test_sentences]
               
 label_predict = crf.predict(dataset_test)
 
+len(dataset_test)
+
 labels = list(crf.classes_)
               
 metrics.flat_f1_score(label_test, label_predict,

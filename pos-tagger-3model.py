@@ -88,9 +88,6 @@ def tagFromWord(sentence, index):
     else:
         return sentence[index]['xpostag']
 
-
-
-
 tagFromWord(tagged[0], 0)
 
 percentage = int(.8 * len(tagged))
@@ -121,8 +118,8 @@ from sklearn.pipeline import Pipeline
 
 clf = Pipeline([
     ('vectorizer', DictVectorizer(sparse=False)),
-    #('classifier', KNeighborsClassifier())
     ('classifier', DecisionTreeClassifier())
+    #('classifier', KNeighborsClassifier())
     #('classifier', GaussianNB())
 ])
 
